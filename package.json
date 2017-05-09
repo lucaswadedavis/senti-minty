@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/lucaswadedavis/senti-minty#readme",
   "dependencies": {
-    "sentiment": "^4.0.0"
+    "sentiment": "^4.0.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "jsonfile": "^2.4.0"
