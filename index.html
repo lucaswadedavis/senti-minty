@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Language" content="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Senti Minty</title>
+
+<script type='text/javascript' src='./lib/jquery.min.js'></script>
+<script type='text/javascript' src='./lib/underscore-min.js'></script>
+<script type='text/javascript' src='./lib/d3.min.js'></script>
+<script type='text/javascript' src='./lib/c3.min.js'></script>
+<script type='text/javascript' src='./lib/papaparse.min.js'></script>
+<script type='text/javascript' src='./lib/bootstrap/js/bootstrap.min.js'></script>
+<script type='text/javascript' src='./src/app.js'></script>
+
+<link href='./lib/bootstrap/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
+<link href='./lib/c3.min.css'  media="screen" rel="stylesheet" type="text/css" />
+
+<style type='text/css'>
+
+  #timeseries-chart{
+    height:300px;
+  }
+
+  #dayofweek-donut-chart{
+    height:300px;
+  }
+</style>
+
+</head>
+<body>
+
+<div class='container'>
+<div class='page-header'>
+  <h1>Sentiment Analysis Demo</h1>
+</div>
+
+<div id='timeseries-chart'></div>
+  <div class='row'>
+    <div id='dayofweek-donut-chart'  class='col-xs-12 col-md-6'>a donut graph for days of the week</div>
+    <div class='col-xs-12 col-md-6'>
+      <h2>Explanation</h2>
+      <div class='well'>
+      <p>I used D3 and C3 for charting, Bootstrap for page layout, Underscore for some functional tools, and wrote a few utilities to further clean the data.
+    </p>
+    <p>
+    The data is being loaded and parsed dynamically using the ParsePapa library directly from the csv in the src directory. You can see all the code on <a href='https://github.com/lucaswadedavis/senti-minty/'>Github</a>.
+    </p>
+  </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

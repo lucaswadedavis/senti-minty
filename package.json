@@ -1,0 +1,19 @@
+{
+  "name": "senti-minty",
+  "version": "1.0.0",
+  "description": "### License: MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lucaswadedavis/senti-minty.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucaswadedavis/senti-minty/issues"
+  },
+  "homepage": "https://github.com/lucaswadedavis/senti-minty#readme"
+}

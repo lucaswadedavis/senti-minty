@@ -1,0 +1,3 @@
+# Senti Minty
+
+### License: MIT
