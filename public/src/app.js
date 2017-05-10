@@ -1,91 +1,59 @@
 (function(){
+  var chart;
+  var data = ['sentiment'];
 
-  var cleanData = function(data){
-    return  _.filter(data,function(obj){
-      return obj.date && obj['car.count'] !== undefined && obj.weather && obj['day.of.week'];
-    });
+
+  function getSentiment(str, cb) {
+    var sentiment = Math.random();
+    cb(str, sentiment);
   };
 
 
-  var extractPropertyByDay = function(data,day, prop){
-    return [day].concat([_.reduce(data,function(m,n){
-      return n['day.of.week']===day ? m+(parseFloat(n[prop]) || 0) : m;
-    }, 0)] );
-  };
-
-  var app = {};
-
-  app.displayChart = function(data){
-    var chart = c3.generate({
+  function displayChart(data){
+    chart = c3.generate({
       bindto: "#timeseries-chart",
-        subchart:{show:true},
         data: {
-          x: 'x',
-        columns: [
-      ['x'].concat(_.pluck(data,'date') ),
-        ['weather'].concat(_.pluck(data,'weather') ),
-        ['car.count'].concat(_.pluck(data,'car.count') )
-      ],
-        axes:{
-          weather:"y",
-        'car.count':"y2"
-        }
-        },
-        axis: {
-          x: {
-            type: 'timeseries',
-        tick: {
-          format: '%Y-%m-%d'
-        }
-          },
-          y:{label:"weather"},
-          y2:{show:true, label:"car count"}
-        }
-    });
-
-
-  };
-
-  app.displayDonut = function(data){
-
-
-    var chart = c3.generate({
-      bindto:"#dayofweek-donut-chart",
-        data:{
-          columns:_.map(["sunday","monday","tuesday","wednesday","thursday","friday","saturday"],function(day){
-            return extractPropertyByDay(data,day,"car.count");
-          }),
-          type:"donut"
-        },
-        donut:{
-          title:"cars per day"
+          columns: [
+            ['sentiment'].concat(data)
+          ]
         }
     });
   };
 
 
-  app.init = function(){
+  function tableRow(str, sentiment) {
+    var row = $('<tr/>');
+    row.html('<td>' + sentiment + '</td><td>' + str + '</td>');
+    return row;
+  };
 
-    var url = "./src/data.csv";
-    var opts = {
-      download:true,
-      header:true,
-      complete:function(results,file){
-        console.log(results);
-        app.data = cleanData(results.data);
-        app.displayChart(app.data);
-        app.displayDonut(app.data);
-      },
-      error:function(err,file){
-        console.log(err);
+
+  function init(){
+    displayChart([]);
+    $('button').on('click', function() {
+      var textArea = $('textarea');
+      var input = textArea.val();
+      input = input.split('.');
+      textArea.val('');
+      for (var i = 0; i < input.length; i++) {
+        getSentiment(input[i], function(str, sentiment){
+          $('tbody').append(tableRow(str, sentiment));
+          data.push(sentiment);
+          chart.load({columns: [data]});
+        });
       }
-    };
+    });
 
-    Papa.parse(url,opts);
+    setTimeout(function() {
+      chart.load({
+        columns: [data]
+      });
+    }, 1000);
   };
 
-  window.app = app;
+
+  $(document).ready(function(){ init() });
+
 
 })();
 
-$(document).ready(function(){ app.init() });
