@@ -4,10 +4,25 @@
 
 
   function getSentiment(str, cb) {
-    var sentiment = Math.random();
-    cb(str, sentiment);
-  };
+    var opts = {
+      headers: {
+        'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({data:str})
+    };
+    fetch('api', opts)
+      .then(function(data){
+        return data.json();
+      })
+      .then(function (data) {
+        cb(str, data.score);
+      }).catch(function (error) {
+        console.log('error', error);
+      });
 
+  };
 
   function displayChart(data){
     chart = c3.generate({
@@ -23,6 +38,7 @@
 
   function tableRow(str, sentiment) {
     var row = $('<tr/>');
+    //TODO: make better
     row.html('<td>' + sentiment + '</td><td>' + str + '</td>');
     return row;
   };
@@ -30,25 +46,24 @@
 
   function init(){
     displayChart([]);
+    //TODO: extract this into it's own function
     $('button').on('click', function() {
       var textArea = $('textarea');
       var input = textArea.val();
+      //TODO:clean up the input
       input = input.split('.');
       textArea.val('');
-      for (var i = 0; i < input.length; i++) {
-        getSentiment(input[i], function(str, sentiment){
+      function walk(str) {
+        getSentiment(str, function(str, sentiment){
           $('tbody').append(tableRow(str, sentiment));
           data.push(sentiment);
           chart.load({columns: [data]});
+          if (input.length) walk(input.shift());
         });
       }
+      walk(input.shift());
     });
 
-    setTimeout(function() {
-      chart.load({
-        columns: [data]
-      });
-    }, 1000);
   };
 
 
