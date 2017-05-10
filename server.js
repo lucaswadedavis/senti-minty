@@ -13,7 +13,7 @@ app.post('/api', (req, res) => {
   var data = req.body.data;
   var score = sentiment(data);
   score.original = data;
-  return res.send(200, score);
+  return res.status(200).send(score);
 });
 
 app.listen(port, function () {

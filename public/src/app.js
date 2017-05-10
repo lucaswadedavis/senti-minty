@@ -7,7 +7,7 @@
     var opts = {
       headers: {
         'Accept': 'application/json',
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
       method: "POST",
       body: JSON.stringify({data:str})
@@ -21,7 +21,6 @@
       }).catch(function (error) {
         console.log('error', error);
       });
-
   };
 
   function displayChart(data){
@@ -48,14 +47,14 @@
     displayChart([]);
     //TODO: extract this into it's own function
     $('button').on('click', function() {
+      var tBody = $('tbody');
       var textArea = $('textarea');
-      var input = textArea.val();
       //TODO:clean up the input
-      input = input.split('.');
+      var input = textArea.val().split('.');
       textArea.val('');
       function walk(str) {
         getSentiment(str, function(str, sentiment){
-          $('tbody').append(tableRow(str, sentiment));
+          tBody.append(tableRow(str, sentiment));
           data.push(sentiment);
           chart.load({columns: [data]});
           if (input.length) walk(input.shift());
@@ -63,7 +62,6 @@
       }
       walk(input.shift());
     });
-
   };
 
 
