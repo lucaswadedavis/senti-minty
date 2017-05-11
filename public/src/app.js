@@ -23,12 +23,12 @@
       });
   };
 
-  function displayChart(data){
+  function displayChart(){
     chart = c3.generate({
-      bindto: "#timeseries-chart",
+      bindto: "#chart",
         data: {
           columns: [
-            ['sentiment'].concat(data)
+            ['sentiment']
           ]
         }
     });
@@ -44,7 +44,7 @@
 
 
   function init(){
-    displayChart([]);
+    displayChart();
     //TODO: extract this into it's own function
     $('button').on('click', function() {
       var tBody = $('tbody');
