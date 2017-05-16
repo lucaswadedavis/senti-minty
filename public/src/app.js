@@ -2,7 +2,6 @@
   var chart;
   var data = ['sentiment'];
 
-
   function getSentiment(str, cb) {
     var opts = {
       headers: {
